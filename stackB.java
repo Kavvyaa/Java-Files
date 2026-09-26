@@ -1,4 +1,6 @@
 import java.util.*;
+
+import org.w3c.dom.Node;
 public class stackB {
 
     static class Node {
@@ -94,24 +96,46 @@ public class stackB {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        //to use jcf just add this line and all methods will be imported
+    public static void stockSpan(int stocks[], int span[]){
         Stack <Integer> s = new Stack<>();
-        // stack s = new stack();
-        // s.push(1);
-        // s.push(2);
-        // s.push(3);
-        // pushAtBottom(s, 4);
-
-        while (!s.isEmpty()) {
-            System.out.println(s.pop());
+        span[0] = 1;
+        s.push(0);
+        for (int i = 1; i < stocks.length; i++) {
+            int currPrice = stocks[i];
+            while (!s.isEmpty() && currPrice>stocks[s.peek()]) {
+                s.pop();
+            }
+            if (s.isEmpty()) {
+                span[i] = i+1;
+            } else {
+                int prevHigh = s.peek();
+                span[i] = i-prevHigh;
+            }
+            s.push(i);
         }
+    }
 
-        // while (!s.isEmpty()) {
-        //     System.out.println(s.peek());
-        //     s.pop();
-        // }
-        String str = "kavya";
-        System.out.println(reverseString(str));
+    public static void nextGrBrute(int arr[], int nextGre[]){
+        for (int i = 0; i < arr.length; i++) {
+            nextGre[i] = -1;
+            for (int j = i+1; j < arr.length; j++) {
+                if (arr[i]<arr[j]) {
+                    nextGre[i] = arr[j];
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        //to use jcf just add the next line and all methods will be imported
+        // Stack <Integer> s = new Stack<>();
+
+        int arr[] = {6, 8, 0, 1, 3};
+        int nextGr[] = new int[arr.length];
+        nextGrBrute(arr, nextGr);
+        for(int i=0; i<nextGr.length; i++){
+            System.out.print(nextGr[i]+ " ");
+        }
     }
 }
